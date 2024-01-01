@@ -1,25 +1,54 @@
 
+import { useState } from "react"
 import Sqaure from "./Sqaure"
+
 const Board = () => {
+        const[squares,setsquares]=useState(Array(9).fill(null))
+        // const[squares,setsquares]=useState([]);
+        const handlesquareClick=(clickedPosition)=>{
+                setsquares((currentsquares)=>{
+                        return currentsquares.map((squareVal,position)=>{
+                        if(clickedPosition==position){
+                                return 'X';
+                        }
+                        return squareVal;
+                        })
+                                  });
+        }
+        const renderSquare=(position)=>{
+                return <Sqaure value={squares[position]} onClick={()=>handlesquareClick(position)}/>
+        }
+        
   return (
     <div className="board">
         <div className="board-row">
-<Sqaure value={0}/>
-<Sqaure value={1}/>
-<Sqaure value={2}/>
+{/* <Sqaure value={0}/> */}
+{/* [[<Sqaure value={squares[0]} onClick={()=>{
+        handlesquareClick(0)
+}}/>
+<Sqaure value={squares[1]} onClick={()=>{
+        handlesquareClick(1)
+}}/>
+<Sqaure value={squares[2]} onClick={()=>{
+        handlesquareClick(2)
+}}/>]]  to simplify this used renderfunc up*/}
+{renderSquare(0)}
+{renderSquare(1)}
+{renderSquare(2)}
         </div>
         <div className="board-row">
-        <Sqaure value={3}/>
-<Sqaure value={4}/>
-<Sqaure value={5}/>
+        {renderSquare(3)}
+{renderSquare(4)}
+{renderSquare(5)}
         </div>
         <div className="board-row">
-        <Sqaure value={6}/>
-<Sqaure value={7}/>
-<Sqaure value={8}/>
+        {renderSquare(6)}
+{renderSquare(7)}
+{renderSquare(8)}
         </div>
     </div>
   )
 }
 
 export default Board
+//0,1,2...represents indexes of box numbers
