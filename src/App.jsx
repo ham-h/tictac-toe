@@ -4,15 +4,23 @@ import Board from "./Compo/Board";
 import { calculateWinner } from "./winner";
 import Statusmsg from "./Compo/Statusmsg";
 import History from "./Compo/History";
+const NEW_GAME=[
+  { squares: Array(9).fill(null), isXnext: false },//FOROPTIMIZATION
+]
 
 function App() {
-  const [history, sethistory] = useState([
-    { squares: Array(9).fill(null), isXnext: false },
-  ]);
+  // const [history, sethistory] = useState([
+  //   { squares: Array(9).fill(null), isXnext: false },
+  // ]);
+  const [history, sethistory] = useState(NEW_GAME);
   const [currentmove, setcurrentmove] = useState(0);
   const gamingboard = history[currentmove];
 
-  const winner = calculateWinner(gamingboard.squares);
+  // const winner = calculateWinner(gamingboard.squares);
+  const {
+    winner,
+    winningsquares
+  } = calculateWinner(gamingboard.squares);
   console.log({ historyLength: history.length, currentmove });
   const handlesquareClick = (clickedPosition) => {
     if (gamingboard.squares[clickedPosition] || winner) {
@@ -49,6 +57,10 @@ function App() {
   const moveTo = (move) => {
     setcurrentmove(move);
   };
+  const onNewGamestart=()=>{
+    sethistory(NEW_GAME)//initial state
+    setcurrentmove(0);
+  }
   return (
     <div className="app">
       
@@ -57,7 +69,9 @@ function App() {
       <Board
         squares={gamingboard.squares}
         handlesquareClick={handlesquareClick}
+        winningsquares={winningsquares}
       />
+      <button type="button" onClick={onNewGamestart} className={`btn-reset ${winner ? 'active' : ''}`}>Start New Game</button>
 <h2>Current Game History</h2>
       <History history={history} moveTo={moveTo} currentMove={currentmove} />
     </div>
