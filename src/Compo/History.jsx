@@ -10,7 +10,9 @@ const History = ({ history, moveTo, currentmove }) => {
             {/* v  should pass keyto li whichis  the wrapper not to  button */}
             <button
               type="button"
-              className={`btn-move ${currentmove === index ? 'active' : '' }`} //putting in`` help to do js incide it.${currentmove === index ? 'active': ''
+              className={`btn-move ${currentmove === index ? "active" : ""}`}
+              //putting in`` help to do js incide it.${currentmove === index ? 'active': ''
+              // style={{ fontWeight: currentmove === index ? "bold" : "normal" }}
               onClick={() => moveTo(index)}
             >
               {index === 0 ? "Go to Game start" : `Go to move ${index}`}
